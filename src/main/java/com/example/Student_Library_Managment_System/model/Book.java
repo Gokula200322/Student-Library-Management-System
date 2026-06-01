@@ -1,5 +1,7 @@
 package com.example.Student_Library_Managment_System.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.internal.TransactionManagement;
@@ -38,10 +40,12 @@ public class Book {
     @Column(name = "rackNo", nullable = false)
     private String rackNo;
 
+    @JsonBackReference// it prints the data already in the previous linked class, we do not need to print again here so infintie loop pf printing of data is prevented
     @JoinColumn
     @ManyToOne
     private Card card;
 
+    @JsonManagedReference// we manage by printing the data here of the linked next class so infinte loop of printing of data is prevented
     @OneToMany(mappedBy = "book")
     private List<Transaction> transaction;
 

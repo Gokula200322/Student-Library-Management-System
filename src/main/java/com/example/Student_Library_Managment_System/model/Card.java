@@ -1,6 +1,8 @@
 package com.example.Student_Library_Managment_System.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jdk.jfr.Timestamp;
 import lombok.Data;
@@ -35,13 +37,16 @@ public class Card {
     @UpdateTimestamp // when a card is updated then it will automatically update the date and time.
     private Date updatedDate;
 
+    @JsonBackReference
     @JoinColumn// it joins the PK of student table with the card table and acts as a FK;
     @OneToOne // one card will be assigned to one student;
     private Student student;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "card")
     private List<Book> book;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "card")
     private List<Transaction> transaction;
 

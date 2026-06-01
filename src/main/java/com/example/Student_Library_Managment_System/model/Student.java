@@ -1,5 +1,6 @@
 package com.example.Student_Library_Managment_System.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -34,6 +35,7 @@ public class Student {
     @Column(name = "address",nullable = false)
     private String address;
 
+    @JsonManagedReference
     @OneToOne(mappedBy = "student", cascade = CascadeType.ALL)// one student will have one card
     // casecade - if student gets created , a card also is created and if student deleted , card also deleted.
     private Card card;
